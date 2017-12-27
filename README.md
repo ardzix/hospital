@@ -1,1 +1,5 @@
-# hospital
+# Hospital Apps
+
+Author:
+ * Hasna Azhar
+ * Arif Dzikrullah
