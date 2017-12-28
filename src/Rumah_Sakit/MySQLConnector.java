@@ -67,7 +67,7 @@ public class MySQLConnector {
     }
 
     // You need to close the resultSet
-    private void close() {
+    public void close() {
         try {
             if (resultSet != null) {
                 resultSet.close();

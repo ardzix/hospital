@@ -16,7 +16,8 @@ import javax.swing.table.DefaultTableModel;
 public class Admin extends JFrame {
 
     private DataManager manager;
-
+    private int selected_row = -1;
+    private ArrayList<Integer> ids = new ArrayList<Integer>();
     /**
      * Creates new form Admin
      */
@@ -26,17 +27,11 @@ public class Admin extends JFrame {
     }
     
     public void initDatas(DataManager manager){
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         this.manager = manager;
         System.out.println(manager);
-        if(manager!=null){
-            ArrayList<Object> admins = manager.get_admins();
-            for(int i=0; i<admins.size(); i++){
-                model.addRow((Object[]) admins.get(i));
-            }
-        }else{
-            model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
-        }
+        refreshTable();
+        jbuttonadmin1.setEnabled(false);
+        jbuttonadmin2.setEnabled(false);
     }
 
     /**
@@ -96,6 +91,11 @@ public class Admin extends JFrame {
                 "ID", "Username", "Role"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jbuttonadmin.setBackground(new java.awt.Color(228, 241, 254));
@@ -129,7 +129,7 @@ public class Admin extends JFrame {
         });
 
         jButtonexit.setBackground(new java.awt.Color(242, 38, 19));
-        jButtonexit.setText("BACK");
+        jButtonexit.setText("LOGOUT");
         jButtonexit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonexitActionPerformed(evt);
@@ -150,7 +150,7 @@ public class Admin extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonexit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonexit, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -173,11 +173,21 @@ public class Admin extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbuttonadminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadminActionPerformed
-       
+        AdminForm af = new AdminForm(-1, manager, this);
+        af.setTitle("HeXa Hospital Management System");
+        af.setSize(367, 512);
+        af.setLocationRelativeTo(null);
+        af.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        af.setVisible(true);       
     }//GEN-LAST:event_jbuttonadminActionPerformed
 
     private void jbuttonadmin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadmin1ActionPerformed
-        // TODO add your handling code here:
+        AdminForm af = new AdminForm(ids.get(selected_row), manager, this);
+        af.setTitle("HeXa Hospital Management System");
+        af.setSize(367, 512);
+        af.setLocationRelativeTo(null);
+        af.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        af.setVisible(true); 
     }//GEN-LAST:event_jbuttonadmin1ActionPerformed
 
     private void jbuttonadmin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadmin2ActionPerformed
@@ -193,6 +203,13 @@ public class Admin extends JFrame {
         mu.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonexitActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        selectRow(jTable1.getSelectedRow());
+        jbuttonadmin1.setEnabled(true);
+        jbuttonadmin2.setEnabled(true);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -244,4 +261,31 @@ public class Admin extends JFrame {
     private javax.swing.JButton jbuttonadmin1;
     private javax.swing.JButton jbuttonadmin2;
     // End of variables declaration//GEN-END:variables
+
+    private void selectRow(int selectedRow) {
+        selected_row = selectedRow;
+    }
+
+    public void refreshTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        System.out.println(model.getRowCount());
+        for(int i=0; i<model.getRowCount(); i++){
+            model.removeRow(i);
+            System.out.println(i);
+        }
+        if(manager!=null){
+            ArrayList<Object> admins = manager.get_admins();
+            
+            ids.clear();
+            for(int i=0; i<admins.size(); i++){
+                model.addRow((Object[]) admins.get(i));
+                Object id = (int)((Object[]) admins.get(i))[0];
+                ids.add((Integer) id);
+                System.out.println(id);
+            }  
+        }else{
+            model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
+        }
+    }
 }

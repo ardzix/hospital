@@ -64,10 +64,10 @@ public class DataManager {
     
     public boolean login(String username, char[] password, String role){
         try {
-            byte[] bytesOfPassword = new String(password).getBytes();
             System.out.println("Logging "+username+" in!");
             
 //          Encrypt password using md5 digest
+            byte[] bytesOfPassword = new String(password).getBytes();
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(bytesOfPassword);
             byte[] mdbytes = md.digest();
@@ -126,5 +126,49 @@ public class DataManager {
         }
         
         return objs;
+    }
+
+    void save_admin(int user_id, String[] data) {
+        try {
+            String username = data[0];
+            String password = data[1];
+            String role = data[2];
+            
+//          Encrypt password using md5 digest
+            byte[] bytesOfPassword = new String(password).getBytes();
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(bytesOfPassword);
+            byte[] mdbytes = md.digest();
+            //convert the byte to hex format method 1
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mdbytes.length; i++) {
+                sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            String encrypted_password = sb.toString();
+            if(user_id>=0){
+                String update_sql = "UPDATE `DBUSER` SET `USERNAME` = '"+username+"', `PASSWORD` = '"+encrypted_password+"', `ROLE` = '"+role+"' WHERE `USER_ID` = "+user_id;
+                System.out.println(update_sql);
+                connector.execute(update_sql);
+            }else{
+                String create_sql = "INSERT INTO `DBUSER` (`USERNAME`, `PASSWORD`, `ROLE`) VALUES ('"+username+"', '"+encrypted_password+"', '"+role+"')";
+                System.out.println(create_sql);
+                connector.execute(create_sql);
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    Object[] get_admin(int user_id) {
+        Object[] admin = null;
+        try {
+            String select_sql = "SELECT * FROM `DBUSER` WHERE `USER_ID` = "+user_id;
+            ResultSet rs = connector.execute_query(select_sql);
+            rs.next();
+            admin = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(4)};
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return admin;
     }
 }
