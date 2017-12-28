@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 /**
  *
@@ -93,12 +94,14 @@ public class DataManager {
             if(!rs_password.equals(encrypted_password)){
                 message = "Login Failed, please check your username or password";
                 System.out.println("Password missmatch");
+                return false;
             }
             
 //            Check if role match
             if(!rs_role.equals(role)){
                 message = "Login Failed, You are not authorized to access this menu";
                 System.out.println("Role missmatch");
+                return false;
             }
 
         }catch (SQLException | NoSuchAlgorithmException ex) {
@@ -108,5 +111,20 @@ public class DataManager {
         message = "Login Success!!";
         System.out.println(message);
         return true;
+    }
+    
+    public ArrayList<Object> get_admins(){
+        ArrayList<Object> objs = new ArrayList<>();
+        try {
+            String select_sql = "SELECT * FROM `DBUSER`";
+            ResultSet rs = connector.execute_query(select_sql);
+            while(rs.next()){
+                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(4)});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return objs;
     }
 }
