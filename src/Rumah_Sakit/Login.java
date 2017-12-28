@@ -198,12 +198,13 @@ public class Login extends javax.swing.JFrame {
 
     private void jbuttonadminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadminActionPerformed
 
-                Menu_Utama mu = new Menu_Utama();
-                mu.setSize(600,420);
-                mu.setLocationRelativeTo(null);
-                mu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                mu.setVisible(true);
-                dispose();
+        Menu_Utama mu = new Menu_Utama();
+        mu.setTitle("HeXa Hospital Management System");
+        mu.setSize(600,420);
+        mu.setLocationRelativeTo(null);
+        mu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mu.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jbuttonadminActionPerformed
 
     private void jbuttonadmin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadmin1ActionPerformed
@@ -212,6 +213,7 @@ public class Login extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, manager.get_message());
         if(login && role=="admin"){
             Admin a = new Admin(manager);
+            a.setTitle("HeXa Hospital Management System");
             a.setSize(800,540);
             a.setLocationRelativeTo(null);
             a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -251,6 +253,7 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Login l = new Login(0);
+                l.setTitle("HeXa Hospital Management System");
                 l.setLocationRelativeTo(null);
                 l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 l.setVisible(true);

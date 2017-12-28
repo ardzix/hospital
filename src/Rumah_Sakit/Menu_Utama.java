@@ -20,16 +20,10 @@ public class Menu_Utama extends JFrame {
     }
     @SuppressWarnings("unchecked")
     
-//  
-    private void CalcGUI(){
-        setTitle("Air Cannon Modeler");
-        setSize(400,400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }   
     
     private void login(int role){
         Login l = new Login(role);
+        l.setTitle("HeXa Hospital Management System");
         l.setLocationRelativeTo(null);
         l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         l.setVisible(true);
@@ -192,6 +186,7 @@ public class Menu_Utama extends JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Menu_Utama mu = new Menu_Utama();
+                mu.setTitle("HeXa Hospital Management System");
                 mu.setSize(600,420);
                 mu.setLocationRelativeTo(null);
                 mu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

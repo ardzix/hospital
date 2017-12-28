@@ -186,6 +186,7 @@ public class Admin extends JFrame {
 
     private void jButtonexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexitActionPerformed
         Menu_Utama mu = new Menu_Utama();
+        mu.setTitle("HeXa Hospital Management System");
         mu.setSize(600,420);
         mu.setLocationRelativeTo(null);
         mu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -224,6 +225,7 @@ public class Admin extends JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Admin a = new Admin(null);
+                a.setTitle("HeXa Hospital Management System");
                 a.setSize(800,540);
                 a.setLocationRelativeTo(null);
                 a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
