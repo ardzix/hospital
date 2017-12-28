@@ -7,6 +7,7 @@ package Rumah_Sakit;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -191,7 +192,12 @@ public class Admin extends JFrame {
     }//GEN-LAST:event_jbuttonadmin1ActionPerformed
 
     private void jbuttonadmin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadmin2ActionPerformed
-        // TODO add your handling code here:
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure want to delete this data?","Warning",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION){
+            manager.delete_admin(ids.get(selected_row));
+            refreshTable();
+        }
     }//GEN-LAST:event_jbuttonadmin2ActionPerformed
 
     private void jButtonexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexitActionPerformed
@@ -209,6 +215,7 @@ public class Admin extends JFrame {
         selectRow(jTable1.getSelectedRow());
         jbuttonadmin1.setEnabled(true);
         jbuttonadmin2.setEnabled(true);
+        System.out.println("Selected row "+jTable1.getSelectedRow());
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -269,10 +276,8 @@ public class Admin extends JFrame {
     public void refreshTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         
-        System.out.println(model.getRowCount());
-        for(int i=0; i<model.getRowCount(); i++){
+        for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
-            System.out.println(i);
         }
         if(manager!=null){
             ArrayList<Object> admins = manager.get_admins();
@@ -282,7 +287,6 @@ public class Admin extends JFrame {
                 model.addRow((Object[]) admins.get(i));
                 Object id = (int)((Object[]) admins.get(i))[0];
                 ids.add((Integer) id);
-                System.out.println(id);
             }  
         }else{
             model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});

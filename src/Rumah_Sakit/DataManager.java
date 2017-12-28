@@ -147,11 +147,9 @@ public class DataManager {
             String encrypted_password = sb.toString();
             if(user_id>=0){
                 String update_sql = "UPDATE `DBUSER` SET `USERNAME` = '"+username+"', `PASSWORD` = '"+encrypted_password+"', `ROLE` = '"+role+"' WHERE `USER_ID` = "+user_id;
-                System.out.println(update_sql);
                 connector.execute(update_sql);
             }else{
                 String create_sql = "INSERT INTO `DBUSER` (`USERNAME`, `PASSWORD`, `ROLE`) VALUES ('"+username+"', '"+encrypted_password+"', '"+role+"')";
-                System.out.println(create_sql);
                 connector.execute(create_sql);
             }
         } catch (NoSuchAlgorithmException ex) {
@@ -170,5 +168,10 @@ public class DataManager {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return admin;
+    }
+
+    void delete_admin(int user_id) {
+        String sql_delete = "DELETE FROM `DBUSER` WHERE `USER_ID` = "+user_id;
+        connector.execute(sql_delete);
     }
 }
