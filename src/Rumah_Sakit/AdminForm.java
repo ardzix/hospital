@@ -39,12 +39,6 @@ public class AdminForm extends javax.swing.JFrame {
                 choice[i] = roleChoice.getItemAt(i).toLowerCase();
             }
             roleChoice.setSelectedIndex(Arrays.asList(choice).indexOf(admin[2]));
-            System.out.println(admin[2]);
-            System.out.println(choice[0]);
-            System.out.println(choice[1]);
-            System.out.println(choice[2]);
-            System.out.println(choice[3]);
-            System.out.println(Arrays.asList(choice).indexOf(admin[2]));
         }
     }
     /**

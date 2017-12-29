@@ -211,15 +211,15 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         boolean login = manager.login(jTextusername.getText(), jPassword.getPassword(), role);
         JOptionPane.showMessageDialog(this, manager.get_message());
-        if(login && role=="admin"){
-            Admin a = new Admin(manager);
-            a.setTitle("HeXa Hospital Management System");
-            a.setSize(800,540);
-            a.setLocationRelativeTo(null);
-            a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            a.setVisible(true);
+        if(login){   
+            ActionMenu am = new ActionMenu(manager, role);
+            am.setTitle("HeXa Hospital Management System");
+            am.setSize(800,500);
+            am.setLocationRelativeTo(null);
+            am.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            am.setVisible(true);
             dispose();
-        }
+        }                         
     }//GEN-LAST:event_jbuttonadmin1ActionPerformed
 
     /**

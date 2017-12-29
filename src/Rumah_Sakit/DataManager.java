@@ -41,8 +41,9 @@ public class DataManager {
         DatabaseMetaData meta;
         try {
             meta = connector.get_connection().getMetaData();
-            ResultSet user = meta.getTables(null, null, "DBUSER", 
-            new String[] {"TABLE"});
+            ResultSet user = meta.getTables(null, null, "DBUSER", new String[] {"TABLE"});
+            ResultSet medicine = meta.getTables(null, null, "MEDICINE", new String[] {"TABLE"});
+            
             if(!user.next()){
                 System.out.println("Tabble USER not found, \nCreating new one. . .");
 		String createUserTableSQL = "CREATE TABLE DBUSER(USER_ID INT(5) NOT NULL AUTO_INCREMENT, USERNAME VARCHAR(20) NOT NULL, PASSWORD VARCHAR(32) NOT NULL, ROLE VARCHAR(20), PRIMARY KEY (USER_ID) );";
@@ -52,6 +53,14 @@ public class DataManager {
                 System.out.println("Table \"USER\" is created!");
             }else{
                 System.out.println("Table \"USER\" checked");
+            }
+            if(!medicine.next()){
+                System.out.println("Tabble MEDICINE not found, \nCreating new one. . .");
+                String createMedicineTableSQL = "CREATE TABLE `hospital`.`MEDICINE` ( `MEDICINE_ID` INT(5) NOT NULL AUTO_INCREMENT, `NAME` VARCHAR(255) NOT NULL , `PRICE` INT(12) NOT NULL , `INGREDIENTS` TEXT NULL , `EFFECTS` TEXT NULL , `BEST_FOR` TEXT NULL , PRIMARY KEY (`MEDICINE_ID`))";
+                connector.execute(createMedicineTableSQL);
+                System.out.println("Table \"MEDICINE\" is created!");
+            }else{
+                System.out.println("Table \"MEDICINE\" checked");
             }
         } catch (SQLException ex) {
             Logger.getLogger(MySQLConnector.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,5 +182,33 @@ public class DataManager {
     void delete_admin(int user_id) {
         String sql_delete = "DELETE FROM `DBUSER` WHERE `USER_ID` = "+user_id;
         connector.execute(sql_delete);
+    }
+
+    ArrayList<Object> get_medicines() {
+        ArrayList<Object> objs = new ArrayList<>();
+        try {
+            String select_sql = "SELECT MEDICINE_ID, NAME, PRICE FROM `MEDICINE`";
+            ResultSet rs = connector.execute_query(select_sql);
+            while(rs.next()){
+                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3)});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return objs;
+    }
+
+    Object[] get_medicine(int medicine_id) {
+        Object[] medicine = null;
+        try {
+            String select_sql = "SELECT * FROM `MEDICINE` WHERE `MEDICINE_ID` = "+medicine_id;
+            ResultSet rs = connector.execute_query(select_sql);
+            rs.next();
+            medicine = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return medicine;
     }
 }

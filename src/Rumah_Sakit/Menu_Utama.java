@@ -42,10 +42,16 @@ public class Menu_Utama extends JFrame {
         jbuttonPharmacy = new javax.swing.JButton();
         jbuttondoctor = new javax.swing.JButton();
         jbuttonadmin = new javax.swing.JButton();
-        jLabelhexa = new javax.swing.JLabel();
         jPanelbiru = new javax.swing.JPanel();
+        jLabelhexa = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 500));
+        setMinimumSize(new java.awt.Dimension(800, 500));
         getContentPane().setLayout(null);
 
         jButtonexit.setBackground(new java.awt.Color(242, 38, 19));
@@ -56,10 +62,13 @@ public class Menu_Utama extends JFrame {
             }
         });
         getContentPane().add(jButtonexit);
-        jButtonexit.setBounds(510, 350, 70, 29);
+        jButtonexit.setBounds(690, 430, 70, 29);
 
+        jPanel1.setBackground(new java.awt.Color(34, 167, 240));
+
+        jLabel1.setBackground(new java.awt.Color(34, 167, 240));
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(34, 167, 240));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Login As");
         jLabel1.setToolTipText("");
 
@@ -78,7 +87,7 @@ public class Menu_Utama extends JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 120, 120, 40);
+        jPanel1.setBounds(0, 150, 120, 40);
 
         jbuttonPharmacy.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonPharmacy.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -90,7 +99,7 @@ public class Menu_Utama extends JFrame {
             }
         });
         getContentPane().add(jbuttonPharmacy);
-        jbuttonPharmacy.setBounds(390, 290, 130, 40);
+        jbuttonPharmacy.setBounds(510, 350, 130, 40);
 
         jbuttondoctor.setBackground(new java.awt.Color(228, 241, 254));
         jbuttondoctor.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -102,7 +111,7 @@ public class Menu_Utama extends JFrame {
             }
         });
         getContentPane().add(jbuttondoctor);
-        jbuttondoctor.setBounds(230, 290, 130, 40);
+        jbuttondoctor.setBounds(330, 350, 130, 40);
 
         jbuttonadmin.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonadmin.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -114,30 +123,51 @@ public class Menu_Utama extends JFrame {
             }
         });
         getContentPane().add(jbuttonadmin);
-        jbuttonadmin.setBounds(70, 290, 120, 40);
+        jbuttonadmin.setBounds(140, 350, 120, 40);
+
+        jPanelbiru.setBackground(new java.awt.Color(34, 167, 240));
 
         jLabelhexa.setBackground(new java.awt.Color(228, 241, 254));
         jLabelhexa.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         jLabelhexa.setForeground(new java.awt.Color(240, 240, 240));
+        jLabelhexa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/LOGO FIX-compress2 set.png"))); // NOI18N
         jLabelhexa.setText("     HeXa HOSPITAL MANAGEMENT SYSTEM");
-        getContentPane().add(jLabelhexa);
-        jLabelhexa.setBounds(0, 29, 590, 70);
-
-        jPanelbiru.setBackground(new java.awt.Color(34, 167, 240));
 
         javax.swing.GroupLayout jPanelbiruLayout = new javax.swing.GroupLayout(jPanelbiru);
         jPanelbiru.setLayout(jPanelbiruLayout);
         jPanelbiruLayout.setHorizontalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(jPanelbiruLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jLabelhexa, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanelbiruLayout.setVerticalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelbiruLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabelhexa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(jPanelbiru);
-        jPanelbiru.setBounds(0, 30, 600, 70);
+        jPanelbiru.setBounds(0, 30, 800, 70);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Medicine-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(520, 230, 110, 100);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Admin-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(150, 230, 100, 100);
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Doctor-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(340, 230, 100, 100);
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Background fix.jpg"))); // NOI18N
+        jLabel7.setText("jLabel7");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(0, 0, 810, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,7 +217,6 @@ public class Menu_Utama extends JFrame {
             public void run() {
                 Menu_Utama mu = new Menu_Utama();
                 mu.setTitle("HeXa Hospital Management System");
-                mu.setSize(600,420);
                 mu.setLocationRelativeTo(null);
                 mu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mu.setVisible(true);   
@@ -198,6 +227,10 @@ public class Menu_Utama extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonexit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelhexa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelbiru;

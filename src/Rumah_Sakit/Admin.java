@@ -52,6 +52,7 @@ public class Admin extends JFrame {
         jbuttonadmin1 = new javax.swing.JButton();
         jbuttonadmin2 = new javax.swing.JButton();
         jButtonexit = new javax.swing.JButton();
+        jButtonexit1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -61,7 +62,8 @@ public class Admin extends JFrame {
         jLabelhexa.setBackground(new java.awt.Color(228, 241, 254));
         jLabelhexa.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         jLabelhexa.setForeground(new java.awt.Color(240, 240, 240));
-        jLabelhexa.setText("     ADMIN - HeXa HOSPITAL MANAGEMENT SYSTEM");
+        jLabelhexa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/LOGO FIX-compress2 set.png"))); // NOI18N
+        jLabelhexa.setText("  ADMIN - HeXa HOSPITAL MANAGEMENT SYSTEM");
 
         javax.swing.GroupLayout jPanelbiruLayout = new javax.swing.GroupLayout(jPanelbiru);
         jPanelbiru.setLayout(jPanelbiruLayout);
@@ -71,7 +73,7 @@ public class Admin extends JFrame {
             .addGroup(jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelbiruLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabelhexa, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+                    .addComponent(jLabelhexa, javax.swing.GroupLayout.PREFERRED_SIZE, 734, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanelbiruLayout.setVerticalGroup(
@@ -137,12 +139,20 @@ public class Admin extends JFrame {
             }
         });
 
+        jButtonexit1.setBackground(new java.awt.Color(0, 153, 153));
+        jButtonexit1.setText("CLOSE");
+        jButtonexit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonexit1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelbiru, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbuttonadmin, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,6 +161,8 @@ public class Admin extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonexit1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonexit, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -166,7 +178,8 @@ public class Admin extends JFrame {
                     .addComponent(jbuttonadmin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbuttonadmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonexit))
+                    .addComponent(jButtonexit)
+                    .addComponent(jButtonexit1))
                 .addGap(10, 10, 10))
         );
 
@@ -218,6 +231,10 @@ public class Admin extends JFrame {
         System.out.println("Selected row "+jTable1.getSelectedRow());
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jButtonexit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexit1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonexit1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +277,7 @@ public class Admin extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonexit;
+    private javax.swing.JButton jButtonexit1;
     private javax.swing.JLabel jLabelhexa;
     private javax.swing.JPanel jPanelbiru;
     private javax.swing.JScrollPane jScrollPane1;
