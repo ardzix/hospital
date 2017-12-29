@@ -22,6 +22,7 @@ public class DataManager {
     
     private MySQLConnector connector;
     private String message;
+    private int logged_user;
     
     public DataManager(){
         initConnection();
@@ -44,6 +45,8 @@ public class DataManager {
             ResultSet user = meta.getTables(null, null, "DBUSER", new String[] {"TABLE"});
             ResultSet medicine = meta.getTables(null, null, "MEDICINE", new String[] {"TABLE"});
             ResultSet patient = meta.getTables(null, null, "PATIENT", new String[] {"TABLE"});
+            ResultSet appointment = meta.getTables(null, null, "APPOINTMENT", new String[] {"TABLE"});
+            ResultSet am = meta.getTables(null, null, "APPOINTMENT_MEDICINE", new String[] {"TABLE"});
             
             if(!user.next()){
                 System.out.println("Tabble USER not found, \nCreating new one. . .");
@@ -70,6 +73,22 @@ public class DataManager {
                 System.out.println("Table \"PATIENT\" is created!");
             }else{
                 System.out.println("Table \"PATIENT\" checked");
+            }
+            if(!appointment.next()){
+                System.out.println("Tabble APPOINTMENT not found, \nCreating new one. . .");
+                String createMedicineTableSQL = "CREATE TABLE `hospital`.`APPOINTMENT` ( `APPOINTMENT_ID` INT(5) NOT NULL AUTO_INCREMENT , `USER_ID` INT(5) NOT NULL , `PATIENT_ID` INT(5) NOT NULL , `COMPLAINT` TEXT NOT NULL , `DIAGNOSE` TEXT NOT NULL , PRIMARY KEY (`APPOINTMENT_ID`));";
+                connector.execute(createMedicineTableSQL);
+                System.out.println("Table \"APPOINTMENT\" is created!");
+            }else{
+                System.out.println("Table \"APPOINTMENT\" checked");
+            }
+            if(!am.next()){
+                System.out.println("Tabble APPOINTMENT_MEDICINE not found, \nCreating new one. . .");
+                String createMedicineTableSQL = "CREATE TABLE `hospital`.`APPOINTMENT_MEDICINE` ( `AM_ID` INT(5) NOT NULL AUTO_INCREMENT , `APPOINTMENT_ID` INT(5) NOT NULL , `MEDICINE_ID` INT(5) NOT NULL , PRIMARY KEY (`AM_ID`));";
+                connector.execute(createMedicineTableSQL);
+                System.out.println("Table \"APPOINTMENT_MEDICINE\" is created!");
+            }else{
+                System.out.println("Table \"APPOINTMENT_MEDICINE\" checked");
             }
         } catch (SQLException ex) {
             Logger.getLogger(MySQLConnector.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,6 +140,8 @@ public class DataManager {
                 System.out.println("Role missmatch");
                 return false;
             }
+            
+            this.logged_user = rs.getInt(1);
 
         }catch (SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
