@@ -235,7 +235,12 @@ public class ActionMenu extends JFrame {
     }//GEN-LAST:event_jbuttonUserActionPerformed
 
     private void jbuttonPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonPatientActionPerformed
-        
+        Patient p = new Patient(manager);
+        p.setTitle("HeXa Hospital Management System");
+        p.setSize(800,540);
+        p.setLocationRelativeTo(null);
+        p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        p.setVisible(true); 
     }//GEN-LAST:event_jbuttonPatientActionPerformed
 
     private void jbuttonAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonAppointmentActionPerformed

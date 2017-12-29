@@ -12,33 +12,44 @@ import javax.swing.JFrame;
  *
  * @author ardzix
  */
-public class MedicineForm extends javax.swing.JFrame {
+public class PatientForm extends javax.swing.JFrame {
     private DataManager manager;
-    private int medicine_id;
-    private Medicine parent = new Medicine(null);
+    private int patient_id;
+    private Patient parent = new Patient(null);
     /**
      * Creates new form AdminForm
      */
-    public MedicineForm(int user_id, DataManager manager, Medicine parent) {
+    public PatientForm(int patient_id, DataManager manager, Patient parent) {
         initComponents();
-        initDatas(user_id, manager);
+        initDatas(patient_id, manager);
         this.parent = parent;
     }
 
-    public void initDatas(int medicine_id, DataManager manager){       
+    public void initDatas(int patient_id, DataManager manager){       
         this.manager = manager;
-        this.medicine_id = medicine_id;
+        this.patient_id = patient_id;
         if(manager==null){
             jbuttonadmin1.setEnabled(false);
         }    
         
-        if(medicine_id>=0 && manager!=null){
-            Object[] medicine = manager.get_medicine(medicine_id);
-            nameField.setText((String) medicine[1]);
-            priceField.setText((String) medicine[2]);
-            ingredientsField.setText((String) medicine[3]);
-            effectsField.setText((String) medicine[4]);
-            best_forField.setText((String) medicine[5]);
+        if(patient_id>=0 && manager!=null){
+            Object[] patient = manager.get_patient(patient_id);
+            nameField.setText((String) patient[1]);
+            addressField.setText((String) patient[2]);
+            ageField.setText((String) patient[3]);
+            allergyField.setText((String) patient[5]);
+            
+            String[] gender_choiceIds = new String[genderChoice.getItemCount()];
+            for(int i=0; i<genderChoice.getItemCount(); i++){
+                gender_choiceIds[i] = genderChoice.getItemAt(i).toLowerCase();
+            }
+            genderChoice.setSelectedIndex(Arrays.asList(gender_choiceIds).indexOf(patient[4]));
+            
+            String[] bloodtype_choiceIds = new String[blood_typeChoice.getItemCount()];
+            for(int i=0; i<blood_typeChoice.getItemCount(); i++){
+                bloodtype_choiceIds[i] = blood_typeChoice.getItemAt(i).toLowerCase();
+            }
+            blood_typeChoice.setSelectedIndex(Arrays.asList(bloodtype_choiceIds).indexOf(patient[6]));
         }
     }
     /**
@@ -59,14 +70,15 @@ public class MedicineForm extends javax.swing.JFrame {
         jbuttonadmin2 = new javax.swing.JButton();
         jbuttonadmin1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        ingredientsField = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        effectsField = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
+        addressField = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
-        best_forField = new javax.swing.JTextArea();
+        allergyField = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        priceField = new javax.swing.JTextField();
+        ageField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        genderChoice = new javax.swing.JComboBox<>();
+        blood_typeChoice = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +95,8 @@ public class MedicineForm extends javax.swing.JFrame {
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelbiruLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelhexa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabelhexa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelbiruLayout.setVerticalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,9 +115,9 @@ public class MedicineForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Price:");
+        jLabel2.setText("Age:");
 
-        jLabel3.setText("Ingredients:");
+        jLabel3.setText("address:");
 
         jbuttonadmin2.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonadmin2.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -126,58 +139,69 @@ public class MedicineForm extends javax.swing.JFrame {
             }
         });
 
-        ingredientsField.setColumns(20);
-        ingredientsField.setRows(5);
-        jScrollPane1.setViewportView(ingredientsField);
+        addressField.setColumns(20);
+        addressField.setRows(5);
+        jScrollPane1.setViewportView(addressField);
 
-        effectsField.setColumns(20);
-        effectsField.setRows(5);
-        jScrollPane2.setViewportView(effectsField);
+        allergyField.setColumns(20);
+        allergyField.setRows(5);
+        jScrollPane3.setViewportView(allergyField);
 
-        jLabel4.setText("Effects:");
+        jLabel5.setText("Allergy:");
 
-        best_forField.setColumns(20);
-        best_forField.setRows(5);
-        jScrollPane3.setViewportView(best_forField);
-
-        jLabel5.setText("Used for:");
-
-        priceField.setName("nameField"); // NOI18N
-        priceField.addActionListener(new java.awt.event.ActionListener() {
+        ageField.setName("nameField"); // NOI18N
+        ageField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                priceFieldActionPerformed(evt);
+                ageFieldActionPerformed(evt);
             }
         });
+
+        jLabel4.setText("Gender:");
+
+        genderChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+
+        blood_typeChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "AB", "B", "O" }));
+
+        jLabel6.setText("Blood Type:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelbiru, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbuttonadmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane3)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelbiru, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(231, 231, 231))
-                            .addComponent(priceField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jbuttonadmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane3)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(231, 231, 231))
+                                    .addComponent(ageField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(genderChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(blood_typeChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -192,15 +216,19 @@ public class MedicineForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genderChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(blood_typeChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,6 +239,8 @@ public class MedicineForm extends javax.swing.JFrame {
                     .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        jLabel6.getAccessibleContext().setAccessibleName("Blood Type:");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -226,20 +256,21 @@ public class MedicineForm extends javax.swing.JFrame {
     private void jbuttonadmin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadmin1ActionPerformed
         // TODO add your handling code here:
         String name = nameField.getText();
-        String price = priceField.getText();
-        String ingredients = ingredientsField.getText();
-        String effects = effectsField.getText();
-        String best_for = best_forField.getText();
-        String data[] = {name, price, ingredients, effects, best_for};
+        String address = addressField.getText();
+        String age = ageField.getText();
+        String gender = genderChoice.getSelectedItem().toString().toLowerCase();
+        String allergy = allergyField.getText();
+        String blood_type = blood_typeChoice.getSelectedItem().toString().toLowerCase();
+        String data[] = {name, address, age, gender, allergy, blood_type};
         
-        manager.save_medicine(medicine_id, data);
+        manager.save_patient(patient_id, data);
         parent.refreshTable();
         dispose();
     }//GEN-LAST:event_jbuttonadmin1ActionPerformed
 
-    private void priceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceFieldActionPerformed
+    private void ageFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_priceFieldActionPerformed
+    }//GEN-LAST:event_ageFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,21 +289,23 @@ public class MedicineForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedicineForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedicineForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedicineForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedicineForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MedicineForm af = new MedicineForm(-1, null, new Medicine(null));
+                PatientForm af = new PatientForm(-1, null, new Patient(null));
                 af.setTitle("HeXa Hospital Management System");
                 af.setSize(564, 620);
                 af.setLocationRelativeTo(null);
@@ -283,22 +316,23 @@ public class MedicineForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea best_forField;
-    private javax.swing.JTextArea effectsField;
-    private javax.swing.JTextArea ingredientsField;
+    private javax.swing.JTextArea addressField;
+    private javax.swing.JTextField ageField;
+    private javax.swing.JTextArea allergyField;
+    private javax.swing.JComboBox<String> blood_typeChoice;
+    private javax.swing.JComboBox<String> genderChoice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelhexa;
     private javax.swing.JPanel jPanelbiru;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbuttonadmin1;
     private javax.swing.JButton jbuttonadmin2;
     private javax.swing.JTextField nameField;
-    private javax.swing.JTextField priceField;
     // End of variables declaration//GEN-END:variables
 }

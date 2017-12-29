@@ -43,6 +43,7 @@ public class DataManager {
             meta = connector.get_connection().getMetaData();
             ResultSet user = meta.getTables(null, null, "DBUSER", new String[] {"TABLE"});
             ResultSet medicine = meta.getTables(null, null, "MEDICINE", new String[] {"TABLE"});
+            ResultSet patient = meta.getTables(null, null, "PATIENT", new String[] {"TABLE"});
             
             if(!user.next()){
                 System.out.println("Tabble USER not found, \nCreating new one. . .");
@@ -61,6 +62,14 @@ public class DataManager {
                 System.out.println("Table \"MEDICINE\" is created!");
             }else{
                 System.out.println("Table \"MEDICINE\" checked");
+            }
+            if(!patient.next()){
+                System.out.println("Tabble PATIENT not found, \nCreating new one. . .");
+                String createMedicineTableSQL = "CREATE TABLE `hospital`.`PATIENT` ( `PATIENT_ID` INT(5) NOT NULL AUTO_INCREMENT , `NAME` VARCHAR(255) NOT NULL , `ADDRESS` TEXT NULL , `AGE` INT(3) NULL , `GENDER` VARCHAR(15) NOT NULL , `ALLERGY` TEXT NULL , `BLOOD_TYPE` VARCHAR(2) NOT NULL , PRIMARY KEY (`PATIENT_ID`));";
+                connector.execute(createMedicineTableSQL);
+                System.out.println("Table \"PATIENT\" is created!");
+            }else{
+                System.out.println("Table \"PATIENT\" checked");
             }
         } catch (SQLException ex) {
             Logger.getLogger(MySQLConnector.class.getName()).log(Level.SEVERE, null, ex);
@@ -230,6 +239,56 @@ public class DataManager {
 
     void delete_medicine(Integer medicine_id) {
         String sql_delete = "DELETE FROM `MEDICINE` WHERE `MEDICINE_ID` = "+medicine_id;
+        connector.execute(sql_delete);
+    }
+
+    ArrayList<Object> get_patients() {
+        ArrayList<Object> objs = new ArrayList<>();
+        try {
+            String select_sql = "SELECT PATIENT_ID, NAME, AGE FROM `PATIENT`";
+            ResultSet rs = connector.execute_query(select_sql);
+            while(rs.next()){
+                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3)});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return objs;//To change body of generated methods, choose Tools | Templates.
+    }
+
+    Object[] get_patient(int patient_id) {
+        Object[] medicine = null;
+        try {
+            String select_sql = "SELECT * FROM `PATIENT` WHERE `PATIENT_ID` = "+patient_id;
+            ResultSet rs = connector.execute_query(select_sql);
+            rs.next();
+            medicine = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return medicine;
+    }
+
+    void save_patient(int patient_id, String[] data) {
+        String name = data[0];
+        String address = data[1];
+        String age = data[2];
+        String gender = data[3];
+        String allergy = data[4];
+        String blood_type = data[5];
+        
+        if(patient_id>=0){
+            String update_sql = "UPDATE `PATIENT` SET `NAME` = '"+name+"', `ADDRESS` = '"+address+"', `AGE` = "+age+", `GENDER` = '"+gender+"', `ALLERGY` = '"+allergy+"', `BLOOD_TYPE` = '"+blood_type+"' WHERE `PATIENT_ID` = "+patient_id;
+            connector.execute(update_sql);
+        }else{
+            String create_sql = "INSERT INTO `PATIENT` (`NAME`, `ADDRESS`, `AGE`, `GENDER`, `ALLERGY`, `BLOOD_TYPE`) VALUES ('"+name+"', '"+address+"', "+age+", '"+gender+"', '"+allergy+"', '"+blood_type+"')";
+            connector.execute(create_sql);
+        }
+    }
+
+    void delete_patient(Integer patient_id) {
+        String sql_delete = "DELETE FROM `PATIENT` WHERE `PATIENT_ID` = "+patient_id;
         connector.execute(sql_delete);
     }
 }
