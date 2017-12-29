@@ -231,6 +231,9 @@ public class MedicineForm extends javax.swing.JFrame {
         String ingredients = ingredientsField.getText();
         String effects = effectsField.getText();
         String best_for = best_forField.getText();
+        String data[] = {name, price, ingredients, effects, best_for};
+        
+        manager.save_medicine(medicine_id, data);
         parent.refreshTable();
         dispose();
     }//GEN-LAST:event_jbuttonadmin1ActionPerformed

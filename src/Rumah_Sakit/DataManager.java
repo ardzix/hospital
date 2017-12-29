@@ -211,4 +211,25 @@ public class DataManager {
         }
         return medicine;
     }
+
+    void save_medicine(int medicine_id, String[] data) {
+        String name = data[0];
+        String price = data[1];
+        String ingredients = data[2];
+        String effects = data[3];
+        String best_for = data[4];
+        
+        if(medicine_id>=0){
+            String update_sql = "UPDATE `MEDICINE` SET `NAME` = '"+name+"', `PRICE` = "+price+", `INGREDIENTS` = '"+ingredients+"', `EFFECTS` = '"+effects+"', `BEST_FOR` = '"+best_for+"' WHERE `MEDICINE_ID` = "+medicine_id;
+            connector.execute(update_sql);
+        }else{
+            String create_sql = "INSERT INTO `MEDICINE` (`NAME`, `PRICE`, `INGREDIENTS`, `EFFECTS`, `BEST_FOR`) VALUES ('"+name+"', "+price+", '"+ingredients+"', '"+effects+"', '"+best_for+"')";
+            connector.execute(create_sql);
+        }
+    }
+
+    void delete_medicine(Integer medicine_id) {
+        String sql_delete = "DELETE FROM `MEDICINE` WHERE `MEDICINE_ID` = "+medicine_id;
+        connector.execute(sql_delete);
+    }
 }

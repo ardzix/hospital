@@ -207,7 +207,7 @@ public class Medicine extends JFrame {
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure want to delete this data?","Warning",dialogButton);
         if(dialogResult == JOptionPane.YES_OPTION){
-            manager.delete_admin(ids.get(selected_row));
+            manager.delete_medicine(ids.get(selected_row));
             refreshTable();
         }
     }//GEN-LAST:event_jbuttonadmin2ActionPerformed
