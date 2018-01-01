@@ -14,15 +14,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-/**
- *
- * @author ardzix
- */
+
 public class DataManager {
     
     private MySQLConnector connector;
     private String message;
     private int logged_user;
+    private boolean is_admin = false;
+    private boolean is_doctor = false;
+    private boolean is_pharmacist = false;
     
     public DataManager(){
         initConnection();
@@ -48,8 +48,9 @@ public class DataManager {
             ResultSet appointment = meta.getTables(null, null, "APPOINTMENT", new String[] {"TABLE"});
             ResultSet am = meta.getTables(null, null, "APPOINTMENT_MEDICINE", new String[] {"TABLE"});
             
+            
             if(!user.next()){
-                System.out.println("Tabble USER not found, \nCreating new one. . .");
+                System.out.println("Table USER not found, \nCreating new one. . .");
 		String createUserTableSQL = "CREATE TABLE DBUSER(USER_ID INT(5) NOT NULL AUTO_INCREMENT, USERNAME VARCHAR(20) NOT NULL, PASSWORD VARCHAR(32) NOT NULL, ROLE VARCHAR(20), PRIMARY KEY (USER_ID) );";
                 String insertUserSQL = "INSERT INTO `DBUSER` (`USER_ID`, `USERNAME`, `PASSWORD`, `ROLE`) VALUES (NULL, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin')";
                 connector.execute(createUserTableSQL);
@@ -59,37 +60,38 @@ public class DataManager {
                 System.out.println("Table \"USER\" checked");
             }
             if(!medicine.next()){
-                System.out.println("Tabble MEDICINE not found, \nCreating new one. . .");
-                String createMedicineTableSQL = "CREATE TABLE `hospital`.`MEDICINE` ( `MEDICINE_ID` INT(5) NOT NULL AUTO_INCREMENT, `NAME` VARCHAR(255) NOT NULL , `PRICE` INT(12) NOT NULL , `INGREDIENTS` TEXT NULL , `EFFECTS` TEXT NULL , `BEST_FOR` TEXT NULL , PRIMARY KEY (`MEDICINE_ID`))";
+                System.out.println("Table MEDICINE not found, \nCreating new one. . .");
+                String createMedicineTableSQL = "CREATE TABLE `hospital`.`MEDICINE` ( `MEDICINE_ID` INT(5) NOT NULL AUTO_INCREMENT, `NAME` VARCHAR(255) NOT NULL , `INGREDIENTS` TEXT NULL , `EFFECTS` TEXT NULL , `BEST_FOR` TEXT NULL , `PRICE` INT(12) NOT NULL , `STOCK` INT(12) NOT NULL, PRIMARY KEY (`MEDICINE_ID`))";
                 connector.execute(createMedicineTableSQL);
                 System.out.println("Table \"MEDICINE\" is created!");
             }else{
                 System.out.println("Table \"MEDICINE\" checked");
             }
             if(!patient.next()){
-                System.out.println("Tabble PATIENT not found, \nCreating new one. . .");
-                String createMedicineTableSQL = "CREATE TABLE `hospital`.`PATIENT` ( `PATIENT_ID` INT(5) NOT NULL AUTO_INCREMENT , `NAME` VARCHAR(255) NOT NULL , `ADDRESS` TEXT NULL , `AGE` INT(3) NULL , `GENDER` VARCHAR(15) NOT NULL , `ALLERGY` TEXT NULL , `BLOOD_TYPE` VARCHAR(2) NOT NULL , PRIMARY KEY (`PATIENT_ID`));";
-                connector.execute(createMedicineTableSQL);
+                System.out.println("Table PATIENT not found, \nCreating new one. . .");
+                String createPatientTableSQL = "CREATE TABLE `hospital`.`PATIENT` ( `PATIENT_ID` INT(5) NOT NULL AUTO_INCREMENT , `NAME` VARCHAR(255) NOT NULL , `ADDRESS` TEXT NULL , `AGE` INT(3) NULL , `GENDER` VARCHAR(15) NOT NULL , `ALLERGY` TEXT NULL , `BLOOD_TYPE` VARCHAR(2) NOT NULL , PRIMARY KEY (`PATIENT_ID`));";
+                connector.execute(createPatientTableSQL);
                 System.out.println("Table \"PATIENT\" is created!");
             }else{
                 System.out.println("Table \"PATIENT\" checked");
             }
             if(!appointment.next()){
-                System.out.println("Tabble APPOINTMENT not found, \nCreating new one. . .");
-                String createMedicineTableSQL = "CREATE TABLE `hospital`.`APPOINTMENT` ( `APPOINTMENT_ID` INT(5) NOT NULL AUTO_INCREMENT , `USER_ID` INT(5) NOT NULL , `PATIENT_ID` INT(5) NOT NULL , `COMPLAINT` TEXT NOT NULL , `DIAGNOSE` TEXT NOT NULL , PRIMARY KEY (`APPOINTMENT_ID`));";
-                connector.execute(createMedicineTableSQL);
+                System.out.println("Table APPOINTMENT not found, \nCreating new one. . .");
+                String createAppointmentTableSQL = "CREATE TABLE `hospital`.`APPOINTMENT` ( `APPOINTMENT_ID` INT(5) NOT NULL AUTO_INCREMENT , `USER_ID` INT(5) NOT NULL , `PATIENT_ID` INT(5) NOT NULL , `COMPLAINT` TEXT NOT NULL , `DIAGNOSE` TEXT , PRIMARY KEY (`APPOINTMENT_ID`));";
+                connector.execute(createAppointmentTableSQL);
                 System.out.println("Table \"APPOINTMENT\" is created!");
             }else{
                 System.out.println("Table \"APPOINTMENT\" checked");
             }
             if(!am.next()){
-                System.out.println("Tabble APPOINTMENT_MEDICINE not found, \nCreating new one. . .");
-                String createMedicineTableSQL = "CREATE TABLE `hospital`.`APPOINTMENT_MEDICINE` ( `AM_ID` INT(5) NOT NULL AUTO_INCREMENT , `APPOINTMENT_ID` INT(5) NOT NULL , `MEDICINE_ID` INT(5) NOT NULL , PRIMARY KEY (`AM_ID`));";
-                connector.execute(createMedicineTableSQL);
+                System.out.println("Table APPOINTMENT_MEDICINE not found, \nCreating new one. . .");
+                String createAppointment_MedicineTableSQL = "CREATE TABLE `hospital`.`APPOINTMENT_MEDICINE` ( `AM_ID` INT(5) NOT NULL AUTO_INCREMENT , `APPOINTMENT_ID` INT(5) NOT NULL , `MEDICINE_ID` INT(5) NOT NULL , PRIMARY KEY (`AM_ID`));";
+                connector.execute(createAppointment_MedicineTableSQL);
                 System.out.println("Table \"APPOINTMENT_MEDICINE\" is created!");
             }else{
                 System.out.println("Table \"APPOINTMENT_MEDICINE\" checked");
             }
+                     
         } catch (SQLException ex) {
             Logger.getLogger(MySQLConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -135,6 +137,22 @@ public class DataManager {
             }
             
 //            Check if role match
+            if(rs_role.equals("admin")){
+                rs_role = "staff";
+                is_admin = true;
+            }else{
+                is_admin = false;
+            }
+            if(rs_role.equals("doctor")){
+                is_doctor = true;
+            }else{
+                is_doctor = false;
+            }
+            if(rs_role.equals("pharmacist")){
+                is_pharmacist = true;
+            }else{
+                is_pharmacist = false;
+            }
             if(!rs_role.equals(role)){
                 message = "Login Failed, You are not authorized to access this menu";
                 System.out.println("Role missmatch");
@@ -156,6 +174,21 @@ public class DataManager {
         ArrayList<Object> objs = new ArrayList<>();
         try {
             String select_sql = "SELECT * FROM `DBUSER`";
+            ResultSet rs = connector.execute_query(select_sql);
+            while(rs.next()){
+                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(4)});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return objs;
+    }
+    
+    public ArrayList<Object> get_doctors(){
+        ArrayList<Object> objs = new ArrayList<>();
+        try {
+            String select_sql = "SELECT * FROM `DBUSER` WHERE ROLE LIKE 'doctor'";
             ResultSet rs = connector.execute_query(select_sql);
             while(rs.next()){
                 objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(4)});
@@ -217,10 +250,10 @@ public class DataManager {
     ArrayList<Object> get_medicines() {
         ArrayList<Object> objs = new ArrayList<>();
         try {
-            String select_sql = "SELECT MEDICINE_ID, NAME, PRICE FROM `MEDICINE`";
+            String select_sql = "SELECT * FROM `hospital`.`medicine`;";
             ResultSet rs = connector.execute_query(select_sql);
             while(rs.next()){
-                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3)});
+                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(5), rs.getInt(6), rs.getInt(7)});
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -235,7 +268,7 @@ public class DataManager {
             String select_sql = "SELECT * FROM `MEDICINE` WHERE `MEDICINE_ID` = "+medicine_id;
             ResultSet rs = connector.execute_query(select_sql);
             rs.next();
-            medicine = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
+            medicine = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
         } catch (SQLException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -244,16 +277,18 @@ public class DataManager {
 
     void save_medicine(int medicine_id, String[] data) {
         String name = data[0];
-        String price = data[1];
-        String ingredients = data[2];
-        String effects = data[3];
-        String best_for = data[4];
+        String ingredients = data[1];
+        String effects = data[2];
+        String best_for = data[3];
+        String price = data[4];
+        String stock = data [5];
         
         if(medicine_id>=0){
-            String update_sql = "UPDATE `MEDICINE` SET `NAME` = '"+name+"', `PRICE` = "+price+", `INGREDIENTS` = '"+ingredients+"', `EFFECTS` = '"+effects+"', `BEST_FOR` = '"+best_for+"' WHERE `MEDICINE_ID` = "+medicine_id;
+            String update_sql = "UPDATE `MEDICINE` SET `NAME` = '"+name+"', `INGREDIENTS` = '"+ingredients+"', `EFFECTS` = '"+effects+"', `BEST_FOR` = '"+best_for+"',  `PRICE` = "+price+", `STOCK` = "+stock+" WHERE `MEDICINE_ID` = "+medicine_id;
             connector.execute(update_sql);
         }else{
-            String create_sql = "INSERT INTO `MEDICINE` (`NAME`, `PRICE`, `INGREDIENTS`, `EFFECTS`, `BEST_FOR`) VALUES ('"+name+"', "+price+", '"+ingredients+"', '"+effects+"', '"+best_for+"')";
+            String create_sql = "INSERT INTO `MEDICINE` (`NAME`, `INGREDIENTS`, `EFFECTS`, `BEST_FOR`, `PRICE`, `STOCK`) VALUES ('"+name+"', '"+ingredients+"', '"+effects+"', '"+best_for+"', "+price+", "+stock+")";
+            System.out.println(create_sql);
             connector.execute(create_sql);
         }
     }
@@ -266,10 +301,10 @@ public class DataManager {
     ArrayList<Object> get_patients() {
         ArrayList<Object> objs = new ArrayList<>();
         try {
-            String select_sql = "SELECT PATIENT_ID, NAME, AGE FROM `PATIENT`";
+            String select_sql = "SELECT PATIENT_ID, NAME, AGE, GENDER, BLOOD_TYPE, ALLERGY FROM `hospital`.`patient`;";
             ResultSet rs = connector.execute_query(select_sql);
             while(rs.next()){
-                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3)});
+                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5),rs.getString(6)});
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -279,16 +314,16 @@ public class DataManager {
     }
 
     Object[] get_patient(int patient_id) {
-        Object[] medicine = null;
+        Object[] patient = null;
         try {
             String select_sql = "SELECT * FROM `PATIENT` WHERE `PATIENT_ID` = "+patient_id;
             ResultSet rs = connector.execute_query(select_sql);
             rs.next();
-            medicine = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
+            patient = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
         } catch (SQLException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return medicine;
+        return patient;
     }
 
     void save_patient(int patient_id, String[] data) {
@@ -311,5 +346,121 @@ public class DataManager {
     void delete_patient(Integer patient_id) {
         String sql_delete = "DELETE FROM `PATIENT` WHERE `PATIENT_ID` = "+patient_id;
         connector.execute(sql_delete);
+    }
+
+    ArrayList<Object> get_appointments(boolean is_doctor) {
+        ArrayList<Object> objs = new ArrayList<>();
+        try {
+            String select_sql = "";
+            if(is_doctor){
+                select_sql = "SELECT a.APPOINTMENT_ID, u.USERNAME, p.NAME, a.COMPLAINT, a.DIAGNOSE FROM `appointment` as a INNER JOIN `patient` as p on p.PATIENT_ID = a.PATIENT_ID INNER JOIN `dbuser`as u on u.USER_ID = a.USER_ID WHERE u.USER_ID="+logged_user;
+            }else{
+                select_sql = "SELECT a.APPOINTMENT_ID, u.USERNAME, p.NAME, a.COMPLAINT, a.DIAGNOSE FROM `appointment` as a INNER JOIN `patient` as p on p.PATIENT_ID = a.PATIENT_ID INNER JOIN `dbuser`as u on u.USER_ID = a.USER_ID";
+            }
+            ResultSet rs = connector.execute_query(select_sql);
+            while(rs.next()){
+                objs.add(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return objs;//To change body of generated methods, choose Tools | Templates.
+    }
+
+    Object[] get_appointment(int appointment_id) {
+        Object[] appointment = null;
+        try {
+            String select_sql = "SELECT * FROM `APPOINTMENT` WHERE `APPOINTMENT_ID` = "+appointment_id;
+            ResultSet rs = connector.execute_query(select_sql);
+            rs.next();
+            appointment = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return appointment;
+    }
+
+    Object[] get_appointment_joined(int appointment_id) {
+        Object[] appointment = null;
+        try {
+            String select_sql = "SELECT a.APPOINTMENT_ID, u.USERNAME, p.NAME, a.COMPLAINT, a.DIAGNOSE FROM `appointment` as a INNER JOIN `patient` as p on p.PATIENT_ID = a.PATIENT_ID INNER JOIN `dbuser`as u on u.USER_ID = a.USER_ID WHERE a.APPOINTMENT_ID = "+appointment_id;
+            ResultSet rs = connector.execute_query(select_sql);
+            rs.next();
+            appointment = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return appointment;
+    }
+
+    private Object[] get_patient_byname(String name) {
+        Object[] patient = null;
+        try {
+            String select_sql = "SELECT * FROM `PATIENT` WHERE `NAME` = '"+name+"'";
+            ResultSet rs = connector.execute_query(select_sql);
+            rs.next();
+            patient = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return patient;
+    }
+
+    private Object[] get_doctor_byuname(String username) {
+        Object[] doctor = null;
+        try {
+            String select_sql = "SELECT * FROM `DBUSER` WHERE USERNAME LIKE '"+username+"'";
+            ResultSet rs = connector.execute_query(select_sql);
+            rs.next();
+            doctor = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(4)};
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return doctor;
+    }
+
+    void save_appointment(int appointment_id, String[] data) {
+        Object[] patient = get_patient_byname(data[0]);
+        Object[] doctor = get_doctor_byuname(data[1]);
+        String complaint= data[2];
+        
+        if(appointment_id>=0){
+            String update_sql = "UPDATE `APPOINTMENT` SET `PATIENT_ID` = '"+patient[0]+"', `USER_ID` = '"+doctor[0]+"', `COMPLAINT` = '"+complaint+"' WHERE `APPOINTMENT_ID` = "+appointment_id;
+            connector.execute(update_sql);
+        }else{
+            String create_sql = "INSERT INTO `APPOINTMENT` (`PATIENT_ID`, `USER_ID`, `COMPLAINT`) VALUES ('"+patient[0]+"', '"+doctor[0]+"', '"+complaint+"')";
+            connector.execute(create_sql);
+        }
+    }
+
+    void proccess_appointment(int appointment_id, String[] data) {
+        String complaint= data[0];
+        String diagnose = data[1];
+        
+        if(appointment_id>=0){
+            String update_sql = "UPDATE `APPOINTMENT` SET `COMPLAINT` = '"+complaint+"', `DIAGNOSE` = '"+diagnose+"' WHERE `APPOINTMENT_ID` = "+appointment_id;
+            connector.execute(update_sql);
+        }else{
+            String create_sql = "INSERT INTO `APPOINTMENT` (`COMPLAINT`, `DIAGNOSE`) VALUES ('"+complaint+"', '"+diagnose+"')";
+            connector.execute(create_sql);
+        }
+    }
+
+    void delete_appointment(Integer appointment_id) {
+        String sql_delete = "DELETE FROM `APPOINTMENT` WHERE `APPOINTMENT_ID` = "+appointment_id;
+        connector.execute(sql_delete);
+    }
+
+    boolean is_admin() {
+        return is_admin;
+    }
+
+    boolean is_doctor() {
+        return is_doctor;
+    }
+
+    boolean is_pharmacist() {
+        return is_pharmacist;
     }
 }

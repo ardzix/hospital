@@ -47,22 +47,23 @@ public class Menu_Utama extends JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonexit.setBackground(new java.awt.Color(242, 38, 19));
+        jButtonexit.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
         jButtonexit.setText("EXIT");
         jButtonexit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonexitActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonexit);
-        jButtonexit.setBounds(690, 430, 70, 29);
+        getContentPane().add(jButtonexit, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 430, 90, 40));
 
         jPanel1.setBackground(new java.awt.Color(34, 167, 240));
 
@@ -86,8 +87,7 @@ public class Menu_Utama extends JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 150, 120, 40);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 120, -1));
 
         jbuttonPharmacy.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonPharmacy.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -98,8 +98,7 @@ public class Menu_Utama extends JFrame {
                 jbuttonPharmacyActionPerformed(evt);
             }
         });
-        getContentPane().add(jbuttonPharmacy);
-        jbuttonPharmacy.setBounds(510, 350, 130, 40);
+        getContentPane().add(jbuttonPharmacy, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 130, 40));
 
         jbuttondoctor.setBackground(new java.awt.Color(228, 241, 254));
         jbuttondoctor.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -110,37 +109,34 @@ public class Menu_Utama extends JFrame {
                 jbuttondoctorActionPerformed(evt);
             }
         });
-        getContentPane().add(jbuttondoctor);
-        jbuttondoctor.setBounds(330, 350, 130, 40);
+        getContentPane().add(jbuttondoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 130, 40));
 
         jbuttonadmin.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonadmin.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
         jbuttonadmin.setForeground(new java.awt.Color(34, 167, 240));
-        jbuttonadmin.setLabel("Admin");
+        jbuttonadmin.setText("Admin/Staff");
         jbuttonadmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbuttonadminActionPerformed(evt);
             }
         });
-        getContentPane().add(jbuttonadmin);
-        jbuttonadmin.setBounds(140, 350, 120, 40);
+        getContentPane().add(jbuttonadmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 120, 40));
 
         jPanelbiru.setBackground(new java.awt.Color(34, 167, 240));
 
         jLabelhexa.setBackground(new java.awt.Color(228, 241, 254));
         jLabelhexa.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         jLabelhexa.setForeground(new java.awt.Color(240, 240, 240));
-        jLabelhexa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/LOGO FIX-compress2 set.png"))); // NOI18N
         jLabelhexa.setText("     HeXa HOSPITAL MANAGEMENT SYSTEM");
 
         javax.swing.GroupLayout jPanelbiruLayout = new javax.swing.GroupLayout(jPanelbiru);
         jPanelbiru.setLayout(jPanelbiruLayout);
         jPanelbiruLayout.setHorizontalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelbiruLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelbiruLayout.createSequentialGroup()
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addComponent(jLabelhexa, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanelbiruLayout.setVerticalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,25 +145,23 @@ public class Menu_Utama extends JFrame {
                 .addComponent(jLabelhexa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanelbiru);
-        jPanelbiru.setBounds(0, 30, 800, 70);
+        getContentPane().add(jPanelbiru, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Medicine-compress2.png"))); // NOI18N
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(520, 230, 110, 100);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 230, 110, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Admin-compress2.png"))); // NOI18N
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(150, 230, 100, 100);
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Doctor-compress2.png"))); // NOI18N
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(340, 230, 100, 100);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Watermark.png"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Doctor-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Background fix.jpg"))); // NOI18N
         jLabel7.setText("jLabel7");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(0, 0, 810, 500);
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -217,6 +211,7 @@ public class Menu_Utama extends JFrame {
             public void run() {
                 Menu_Utama mu = new Menu_Utama();
                 mu.setTitle("HeXa Hospital Management System");
+                mu.setSize(800,540);
                 mu.setLocationRelativeTo(null);
                 mu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mu.setVisible(true);   
@@ -231,6 +226,7 @@ public class Menu_Utama extends JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelhexa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelbiru;

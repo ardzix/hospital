@@ -20,10 +20,6 @@ import java.sql.DatabaseMetaData;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author ardzix
- */
 public class MySQLConnector {
     private Connection connect = null;
     private Statement statement = null;

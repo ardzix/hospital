@@ -8,10 +8,7 @@ package Rumah_Sakit;
 import java.util.Arrays;
 import javax.swing.JFrame;
 
-/**
- *
- * @author ardzix
- */
+
 public class AdminForm extends javax.swing.JFrame {
     private DataManager manager;
     private int user_id;
@@ -50,6 +47,7 @@ public class AdminForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
         jPanelbiru = new javax.swing.JPanel();
         jLabelhexa = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -60,15 +58,20 @@ public class AdminForm extends javax.swing.JFrame {
         jbuttonadmin2 = new javax.swing.JButton();
         jbuttonadmin1 = new javax.swing.JButton();
         passwordField = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Admin-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, -1, 80));
 
         jPanelbiru.setBackground(new java.awt.Color(34, 167, 240));
 
         jLabelhexa.setBackground(new java.awt.Color(228, 241, 254));
         jLabelhexa.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         jLabelhexa.setForeground(new java.awt.Color(240, 240, 240));
-        jLabelhexa.setText("ADMIN - HeXa HOSPITAL");
+        jLabelhexa.setText("ADD NEW ADMIN");
 
         javax.swing.GroupLayout jPanelbiruLayout = new javax.swing.GroupLayout(jPanelbiru);
         jPanelbiru.setLayout(jPanelbiruLayout);
@@ -76,18 +79,18 @@ public class AdminForm extends javax.swing.JFrame {
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelbiruLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelhexa, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabelhexa)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanelbiruLayout.setVerticalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelbiruLayout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(jLabelhexa, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+            .addComponent(jLabelhexa, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
+        getContentPane().add(jPanelbiru, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 18, 260, 80));
+
         jLabel1.setText("Username:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 116, -1, -1));
 
         usernameField.setName("usernameField"); // NOI18N
         usernameField.addActionListener(new java.awt.event.ActionListener() {
@@ -95,80 +98,43 @@ public class AdminForm extends javax.swing.JFrame {
                 usernameFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 136, 330, 40));
 
         jLabel2.setText("Password:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 182, -1, -1));
 
         jLabel3.setText("Role:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 248, -1, -1));
 
-        roleChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Doctor", "Pharmacist", "Patient" }));
+        roleChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Doctor", "Pharmacist", "Staff" }));
+        getContentPane().add(roleChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 268, 330, 40));
 
-        jbuttonadmin2.setBackground(new java.awt.Color(228, 241, 254));
+        jbuttonadmin2.setBackground(new java.awt.Color(242, 38, 19));
         jbuttonadmin2.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
-        jbuttonadmin2.setForeground(new java.awt.Color(34, 167, 240));
+        jbuttonadmin2.setForeground(new java.awt.Color(255, 255, 255));
         jbuttonadmin2.setText("Close");
         jbuttonadmin2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbuttonadmin2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jbuttonadmin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 120, 40));
 
-        jbuttonadmin1.setBackground(new java.awt.Color(228, 241, 254));
+        jbuttonadmin1.setBackground(new java.awt.Color(0, 153, 153));
         jbuttonadmin1.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
-        jbuttonadmin1.setForeground(new java.awt.Color(34, 167, 240));
+        jbuttonadmin1.setForeground(new java.awt.Color(255, 255, 255));
         jbuttonadmin1.setText("Save");
         jbuttonadmin1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbuttonadmin1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jbuttonadmin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 120, 40));
+        getContentPane().add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 202, 330, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(roleChoice, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(usernameField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelbiru, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbuttonadmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(passwordField))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jPanelbiru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roleChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbuttonadmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Background fix.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -237,6 +203,8 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelhexa;
     private javax.swing.JPanel jPanelbiru;
     private javax.swing.JButton jbuttonadmin1;

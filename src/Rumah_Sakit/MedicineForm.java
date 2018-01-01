@@ -8,10 +8,6 @@ package Rumah_Sakit;
 import java.util.Arrays;
 import javax.swing.JFrame;
 
-/**
- *
- * @author ardzix
- */
 public class MedicineForm extends javax.swing.JFrame {
     private DataManager manager;
     private int medicine_id;
@@ -29,16 +25,17 @@ public class MedicineForm extends javax.swing.JFrame {
         this.manager = manager;
         this.medicine_id = medicine_id;
         if(manager==null){
-            jbuttonadmin1.setEnabled(false);
+            jbuttonsave.setEnabled(false);
         }    
         
         if(medicine_id>=0 && manager!=null){
             Object[] medicine = manager.get_medicine(medicine_id);
             nameField.setText((String) medicine[1]);
-            priceField.setText((String) medicine[2]);
-            ingredientsField.setText((String) medicine[3]);
-            effectsField.setText((String) medicine[4]);
-            best_forField.setText((String) medicine[5]);
+            ingredientsField.setText((String) medicine[2]);
+            effectsField.setText((String) medicine[3]);
+            best_forField.setText((String) medicine[4]);
+            priceField.setText((String) medicine[5]);
+            stockField.setText((String) medicine [6]);
         }
     }
     /**
@@ -50,14 +47,16 @@ public class MedicineForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        stockField = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jPanelbiru = new javax.swing.JPanel();
         jLabelhexa = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jbuttonadmin2 = new javax.swing.JButton();
-        jbuttonadmin1 = new javax.swing.JButton();
+        jbuttonclose = new javax.swing.JButton();
+        jbuttonsave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ingredientsField = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -65,17 +64,31 @@ public class MedicineForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         best_forField = new javax.swing.JTextArea();
-        jLabel5 = new javax.swing.JLabel();
         priceField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        stockField.setName("nameField"); // NOI18N
+        stockField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stockFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(stockField, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 100, 100));
+
+        jLabel8.setText("Stock :");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 294, -1, 30));
 
         jPanelbiru.setBackground(new java.awt.Color(34, 167, 240));
 
         jLabelhexa.setBackground(new java.awt.Color(228, 241, 254));
         jLabelhexa.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
         jLabelhexa.setForeground(new java.awt.Color(240, 240, 240));
-        jLabelhexa.setText("MEDICINE - HeXa HOSPITAL");
+        jLabelhexa.setText("ADD MEDICINE HEXA HOSPITAL");
 
         javax.swing.GroupLayout jPanelbiruLayout = new javax.swing.GroupLayout(jPanelbiru);
         jPanelbiru.setLayout(jPanelbiruLayout);
@@ -83,7 +96,8 @@ public class MedicineForm extends javax.swing.JFrame {
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelbiruLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelhexa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabelhexa)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelbiruLayout.setVerticalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +107,10 @@ public class MedicineForm extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
+        getContentPane().add(jPanelbiru, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 450, -1));
+
         jLabel1.setText("Name:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         nameField.setName("nameField"); // NOI18N
         nameField.addActionListener(new java.awt.event.ActionListener() {
@@ -101,46 +118,56 @@ public class MedicineForm extends javax.swing.JFrame {
                 nameFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(nameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 250, 30));
 
         jLabel2.setText("Price:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, -1, -1));
 
         jLabel3.setText("Ingredients:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 176, -1, -1));
 
-        jbuttonadmin2.setBackground(new java.awt.Color(228, 241, 254));
-        jbuttonadmin2.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
-        jbuttonadmin2.setForeground(new java.awt.Color(34, 167, 240));
-        jbuttonadmin2.setText("Close");
-        jbuttonadmin2.addActionListener(new java.awt.event.ActionListener() {
+        jbuttonclose.setBackground(new java.awt.Color(228, 241, 254));
+        jbuttonclose.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
+        jbuttonclose.setForeground(new java.awt.Color(34, 167, 240));
+        jbuttonclose.setText("Close");
+        jbuttonclose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbuttonadmin2ActionPerformed(evt);
+                jbuttoncloseActionPerformed(evt);
             }
         });
+        getContentPane().add(jbuttonclose, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, 120, 40));
 
-        jbuttonadmin1.setBackground(new java.awt.Color(228, 241, 254));
-        jbuttonadmin1.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
-        jbuttonadmin1.setForeground(new java.awt.Color(34, 167, 240));
-        jbuttonadmin1.setText("Save");
-        jbuttonadmin1.addActionListener(new java.awt.event.ActionListener() {
+        jbuttonsave.setBackground(new java.awt.Color(228, 241, 254));
+        jbuttonsave.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
+        jbuttonsave.setForeground(new java.awt.Color(34, 167, 240));
+        jbuttonsave.setText("Save");
+        jbuttonsave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbuttonadmin1ActionPerformed(evt);
+                jbuttonsaveActionPerformed(evt);
             }
         });
+        getContentPane().add(jbuttonsave, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, 120, 40));
 
         ingredientsField.setColumns(20);
         ingredientsField.setRows(5);
         jScrollPane1.setViewportView(ingredientsField);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 196, 260, 100));
+
         effectsField.setColumns(20);
         effectsField.setRows(5);
         jScrollPane2.setViewportView(effectsField);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 250, -1));
+
         jLabel4.setText("Effects:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, -1));
 
         best_forField.setColumns(20);
         best_forField.setRows(5);
         jScrollPane3.setViewportView(best_forField);
 
-        jLabel5.setText("Used for:");
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 420, 100));
 
         priceField.setName("nameField"); // NOI18N
         priceField.addActionListener(new java.awt.event.ActionListener() {
@@ -148,69 +175,17 @@ public class MedicineForm extends javax.swing.JFrame {
                 priceFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(priceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 250, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelbiru, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbuttonadmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane3)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(231, 231, 231))
-                            .addComponent(priceField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jPanelbiru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbuttonadmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbuttonadmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Downloads\\hospital-master\\src\\Rumah_Sakit\\assets\\Hospital-compress2.png")); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+
+        jLabel7.setText("Used for:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Background fix.jpg"))); // NOI18N
+        jLabel5.setText("Used for:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -219,27 +194,32 @@ public class MedicineForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameFieldActionPerformed
 
-    private void jbuttonadmin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadmin2ActionPerformed
+    private void jbuttoncloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttoncloseActionPerformed
         dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_jbuttonadmin2ActionPerformed
+    }//GEN-LAST:event_jbuttoncloseActionPerformed
 
-    private void jbuttonadmin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonadmin1ActionPerformed
+    private void jbuttonsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonsaveActionPerformed
         // TODO add your handling code here:
         String name = nameField.getText();
-        String price = priceField.getText();
         String ingredients = ingredientsField.getText();
         String effects = effectsField.getText();
         String best_for = best_forField.getText();
-        String data[] = {name, price, ingredients, effects, best_for};
+        String price = priceField.getText();
+        String stock = stockField.getText();
+        String data[] = {name, ingredients, effects, best_for, price, stock};
         
         manager.save_medicine(medicine_id, data);
         parent.refreshTable();
         dispose();
-    }//GEN-LAST:event_jbuttonadmin1ActionPerformed
+    }//GEN-LAST:event_jbuttonsaveActionPerformed
 
     private void priceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_priceFieldActionPerformed
+
+    private void stockFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stockFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,6 +248,8 @@ public class MedicineForm extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -291,14 +273,18 @@ public class MedicineForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelhexa;
     private javax.swing.JPanel jPanelbiru;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JButton jbuttonadmin1;
-    private javax.swing.JButton jbuttonadmin2;
+    private javax.swing.JButton jbuttonclose;
+    private javax.swing.JButton jbuttonsave;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField priceField;
+    private javax.swing.JTextField stockField;
     // End of variables declaration//GEN-END:variables
 }

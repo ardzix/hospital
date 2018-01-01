@@ -7,10 +7,6 @@ package Rumah_Sakit;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author ardzix
- */
 public class ActionMenu extends JFrame {
     private String role;
     private DataManager manager;
@@ -21,16 +17,35 @@ public class ActionMenu extends JFrame {
         this.role = role;
         this.manager = manager;
         initComponents();
-        if(role.equals("admin")){
+        if(manager.is_admin()){
             jbuttonUser.setEnabled(true);
-        }
-        if(role.equals("doctor")){
             jbuttonPatient.setEnabled(true);
             jbuttonAppointment.setEnabled(true);
+            jbuttonMedicine.setEnabled(true);
+            jLabelportal.setText("ADMIN PORTAL");
+        }
+        if(role.equals("staff")){
+//            jbuttonUser.setEnabled(true);
+            jbuttonPatient.setEnabled(true);
+            jbuttonAppointment.setEnabled(true);
+//            jbuttonMedicine.setEnabled(true);
+            jLabelportal.setText("STAFF PORTAL");
+        }
+        if(role.equals("doctor")){
+            jbuttonAppointment.setEnabled(true);
+            jLabelportal.setText("DOCTOR PORTAL");
         }
         if(role.equals("pharmacist")){
             jbuttonMedicine.setEnabled(true);
+            jbuttonAppointment.setEnabled(true);
+            jLabelportal.setText("PHARMACIST PORTAL");
         }
+        if(role.equals("staff")){
+            jbuttonPatient.setEnabled(true);
+            jbuttonAppointment.setEnabled(true);
+            jLabelportal.setText("STAFF PORTAL");
+        }
+       
     }
 
     /**
@@ -45,6 +60,8 @@ public class ActionMenu extends JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanelbiru = new javax.swing.JPanel();
         jLabelhexa1 = new javax.swing.JLabel();
+        jLabelportal = new javax.swing.JLabel();
+        jLabelhexa3 = new javax.swing.JLabel();
         jbuttonUser = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jbuttonPatient = new javax.swing.JButton();
@@ -61,31 +78,52 @@ public class ActionMenu extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 500));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelbiru.setBackground(new java.awt.Color(34, 167, 240));
 
         jLabelhexa1.setBackground(new java.awt.Color(228, 241, 254));
-        jLabelhexa1.setFont(new java.awt.Font("Trajan Pro", 0, 24)); // NOI18N
+        jLabelhexa1.setFont(new java.awt.Font("Champagne & Limousines", 0, 36)); // NOI18N
         jLabelhexa1.setForeground(new java.awt.Color(240, 240, 240));
-        jLabelhexa1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/LOGO FIX-compress2 set.png"))); // NOI18N
-        jLabelhexa1.setText("  MENU - HeXa HOSPITAL MANAGEMENT SYSTEM");
+        jLabelhexa1.setText("to");
+
+        jLabelportal.setBackground(new java.awt.Color(228, 241, 254));
+        jLabelportal.setFont(new java.awt.Font("Champagne & Limousines", 0, 36)); // NOI18N
+        jLabelportal.setForeground(new java.awt.Color(240, 240, 240));
+        jLabelportal.setText("ADMIN PORTAL");
+
+        jLabelhexa3.setBackground(new java.awt.Color(228, 241, 254));
+        jLabelhexa3.setFont(new java.awt.Font("Champagne & Limousines", 1, 48)); // NOI18N
+        jLabelhexa3.setForeground(new java.awt.Color(240, 240, 240));
+        jLabelhexa3.setText("WELCOME");
 
         javax.swing.GroupLayout jPanelbiruLayout = new javax.swing.GroupLayout(jPanelbiru);
         jPanelbiru.setLayout(jPanelbiruLayout);
         jPanelbiruLayout.setHorizontalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelbiruLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelhexa1, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(19, 19, 19)
+                .addGroup(jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelportal)
+                    .addGroup(jPanelbiruLayout.createSequentialGroup()
+                        .addComponent(jLabelhexa3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelhexa1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelbiruLayout.setVerticalGroup(
             jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelbiruLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelhexa1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(155, 155, 155)
+                .addGroup(jPanelbiruLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelhexa3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelhexa1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelportal, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(210, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanelbiru, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, 310, 460));
 
         jbuttonUser.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonUser.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -97,8 +135,10 @@ public class ActionMenu extends JFrame {
                 jbuttonUserActionPerformed(evt);
             }
         });
+        getContentPane().add(jbuttonUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 120, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Admin-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 110, -1));
 
         jbuttonPatient.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonPatient.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -110,8 +150,10 @@ public class ActionMenu extends JFrame {
                 jbuttonPatientActionPerformed(evt);
             }
         });
+        getContentPane().add(jbuttonPatient, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 120, 40));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Patient-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, -1, -1));
 
         jbuttonAppointment.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonAppointment.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -123,8 +165,10 @@ public class ActionMenu extends JFrame {
                 jbuttonAppointmentActionPerformed(evt);
             }
         });
+        getContentPane().add(jbuttonAppointment, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 120, 40));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Appointment-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, -1, -1));
 
         jbuttonMedicine.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonMedicine.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -136,90 +180,23 @@ public class ActionMenu extends JFrame {
                 jbuttonMedicineActionPerformed(evt);
             }
         });
+        getContentPane().add(jbuttonMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 240, 120, 40));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Medicine-compress2.png"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, -1, -1));
 
         jButtonexit.setBackground(new java.awt.Color(242, 38, 19));
+        jButtonexit.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
         jButtonexit.setText("LOGOUT");
         jButtonexit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonexitActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonexit, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 90, 40));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Background fix.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelbiru, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbuttonUser, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbuttonPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel7))
-                    .addComponent(jbuttonAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel8))
-                    .addComponent(jbuttonMedicine, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonexit, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jPanelbiru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbuttonUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(20, 20, 20)
-                        .addComponent(jbuttonPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(20, 20, 20)
-                        .addComponent(jbuttonAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(20, 20, 20)
-                        .addComponent(jbuttonMedicine, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                .addComponent(jButtonexit)
-                .addGap(59, 59, 59))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel9)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,7 +207,6 @@ public class ActionMenu extends JFrame {
             a.setTitle("HeXa Hospital Management System");
             a.setSize(800,540);
             a.setLocationRelativeTo(null);
-            a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             a.setVisible(true);     
     }//GEN-LAST:event_jbuttonUserActionPerformed
 
@@ -239,12 +215,15 @@ public class ActionMenu extends JFrame {
         p.setTitle("HeXa Hospital Management System");
         p.setSize(800,540);
         p.setLocationRelativeTo(null);
-        p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         p.setVisible(true); 
     }//GEN-LAST:event_jbuttonPatientActionPerformed
 
     private void jbuttonAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonAppointmentActionPerformed
-        
+       Appointment ap = new Appointment(manager);
+        ap.setTitle("HeXa Hospital Management System");
+        ap.setSize(800,540);
+        ap.setLocationRelativeTo(null);
+        ap.setVisible(true);  
     }//GEN-LAST:event_jbuttonAppointmentActionPerformed
 
     private void jbuttonMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonMedicineActionPerformed
@@ -252,14 +231,13 @@ public class ActionMenu extends JFrame {
         m.setTitle("HeXa Hospital Management System");
         m.setSize(800,540);
         m.setLocationRelativeTo(null);
-        m.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         m.setVisible(true); 
     }//GEN-LAST:event_jbuttonMedicineActionPerformed
 
     private void jButtonexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexitActionPerformed
         Menu_Utama mu = new Menu_Utama();
         mu.setTitle("HeXa Hospital Management System");
-        mu.setSize(600,420);
+        mu.setSize(800,540);
         mu.setLocationRelativeTo(null);
         mu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mu.setVisible(true);
@@ -298,7 +276,7 @@ public class ActionMenu extends JFrame {
             public void run() {                                         
                 ActionMenu am = new ActionMenu(null, "patient");
                 am.setTitle("HeXa Hospital Management System");
-                am.setSize(800,500);
+                am.setSize(800,540);
                 am.setLocationRelativeTo(null);
                 am.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 am.setVisible(true);
@@ -315,6 +293,8 @@ public class ActionMenu extends JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelhexa1;
+    private javax.swing.JLabel jLabelhexa3;
+    private javax.swing.JLabel jLabelportal;
     private javax.swing.JPanel jPanelbiru;
     private javax.swing.JButton jbuttonAppointment;
     private javax.swing.JButton jbuttonMedicine;

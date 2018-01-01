@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
 
-/**
- *
- * @author ardzix
- */
+
 public class Configurator {
     
     public static void main(String[] args) {
