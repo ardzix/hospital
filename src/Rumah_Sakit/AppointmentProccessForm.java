@@ -7,8 +7,10 @@ package Rumah_Sakit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.ListModel;
 
 public class AppointmentProccessForm extends javax.swing.JFrame {
     private DataManager manager;
@@ -50,8 +52,29 @@ public class AppointmentProccessForm extends javax.swing.JFrame {
             doctorLabel.setText("Doctor: " + (String) appointment[1]);
             complaintField.setText((String) appointment[3]);
             diagnoseField.setText((String) appointment[4]);
+            
+            List<Object> ams = manager.get_medicines_by_appointment(appointment_id);
+            medicineList.clearSelection();
+            for (int i=0; i<ams.size(); i++) {
+                int index = getIndex(medicineList.getModel(), ((Object[]) ams.get(i))[0]);
+                if (index >=0) {
+                    medicineList.addSelectionInterval(index, index);
+                }
+            }
+            medicineList.ensureIndexIsVisible(medicineList.getSelectedIndex());
         }
         
+    }
+    
+    private int getIndex(ListModel model, Object value) {
+        if (value == null) return -1;
+        if (model instanceof DefaultListModel) {
+            return ((DefaultListModel) model).indexOf(value);
+        }
+        for (int i = 0; i < model.getSize(); i++) {
+            if (value.equals(model.getElementAt(i))) return i;
+        }
+        return -1;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -193,16 +216,41 @@ public class AppointmentProccessForm extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         
-        String complaint = complaintField.getText();
-//        String data[] = {patient, doctor, complaint};        // TODO add your handling code here:
+        String diagnose = diagnoseField.getText();
+        List<String> medicines = medicineList.getSelectedValuesList();
+        Object data[] = {diagnose, medicines};        // TODO add your handling code here:
         
-//        manager.save_appointment(appointment_id, data);
+        manager.proccess_appointment(appointment_id, data);
         parent.refreshTable();
         dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
         // TODO add your handling code here:
+        PrintJob pj = new PrintJob();
+        List<String> text = new ArrayList<>();
+        text.add(patientLabel.getText());
+        text.add(doctorLabel.getText());
+        text.add("Complaint : " + complaintField.getText());
+        text.add("Diagnose : " + diagnoseField.getText());
+        text.add("--------------");
+        text.add("");
+        text.add("Medicines/Services price:");
+        
+        List<Object> ams = manager.get_medicines_by_appointment(appointment_id);
+        int total_price = 0;
+        for (int i=0; i<ams.size(); i++) {
+            String med_name = String.valueOf(((Object[]) ams.get(i))[0]);
+            String price = String.valueOf((Integer) ((Object[]) ams.get(i))[1]);
+            String med_text = med_name + ": Rp." + price;
+            text.add(med_text);
+            total_price += ((Integer) ((Object[]) ams.get(i))[1]);
+        }
+        text.add("");
+        text.add("Total: Rp."+total_price);
+        
+        pj.set_text(text);
+        pj.actionPerformed(evt);
     }//GEN-LAST:event_printButtonActionPerformed
 
     /**

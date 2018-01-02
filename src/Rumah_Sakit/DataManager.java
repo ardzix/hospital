@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataManager {
@@ -23,6 +24,7 @@ public class DataManager {
     private boolean is_admin = false;
     private boolean is_doctor = false;
     private boolean is_pharmacist = false;
+    private boolean is_staff = false;
     
     public DataManager(){
         initConnection();
@@ -138,8 +140,7 @@ public class DataManager {
             
 //            Check if role match
             if(rs_role.equals("admin")){
-                rs_role = "staff";
-                is_admin = true;
+               is_admin = true;
             }else{
                 is_admin = false;
             }
@@ -153,6 +154,12 @@ public class DataManager {
             }else{
                 is_pharmacist = false;
             }
+            if(rs_role.equals("staff")){
+               is_staff = true;
+            }else{
+                is_staff = false;
+            }
+            
             if(!rs_role.equals(role)){
                 message = "Login Failed, You are not authorized to access this menu";
                 System.out.println("Role missmatch");
@@ -266,6 +273,20 @@ public class DataManager {
         Object[] medicine = null;
         try {
             String select_sql = "SELECT * FROM `MEDICINE` WHERE `MEDICINE_ID` = "+medicine_id;
+            ResultSet rs = connector.execute_query(select_sql);
+            rs.next();
+            medicine = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return medicine;
+    }
+    
+
+    Object[] get_medicine_by_name(String name) {
+        Object[] medicine = null;
+        try {
+            String select_sql = "SELECT * FROM `MEDICINE` WHERE `NAME` = '"+name+"'";
             ResultSet rs = connector.execute_query(select_sql);
             rs.next();
             medicine = new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
@@ -434,22 +455,43 @@ public class DataManager {
         }
     }
 
-    void proccess_appointment(int appointment_id, String[] data) {
-        String complaint= data[0];
-        String diagnose = data[1];
-        
+    void proccess_appointment(int appointment_id, Object[] data) {
+        String diagnose = (String) data[0];
         if(appointment_id>=0){
-            String update_sql = "UPDATE `APPOINTMENT` SET `COMPLAINT` = '"+complaint+"', `DIAGNOSE` = '"+diagnose+"' WHERE `APPOINTMENT_ID` = "+appointment_id;
+            String update_sql = "UPDATE `APPOINTMENT` SET `DIAGNOSE` = '"+diagnose+"' WHERE `APPOINTMENT_ID` = "+appointment_id;
             connector.execute(update_sql);
-        }else{
-            String create_sql = "INSERT INTO `APPOINTMENT` (`COMPLAINT`, `DIAGNOSE`) VALUES ('"+complaint+"', '"+diagnose+"')";
+        }
+        
+        List<String> medicines = (List<String>) data[1];
+        String delete_sql = "DELETE FROM `APPOINTMENT_MEDICINE` WHERE `APPOINTMENT_ID` = "+appointment_id;
+        connector.execute(delete_sql);
+        for(int i=0; i<medicines.size(); i++){
+            int medicine_id = (int) get_medicine_by_name(medicines.get(i))[0];
+            
+            String create_sql = "INSERT INTO `APPOINTMENT_MEDICINE` (`APPOINTMENT_ID`, `MEDICINE_ID`) VALUES ("+appointment_id+", "+medicine_id+")";
             connector.execute(create_sql);
         }
+        
     }
 
     void delete_appointment(Integer appointment_id) {
         String sql_delete = "DELETE FROM `APPOINTMENT` WHERE `APPOINTMENT_ID` = "+appointment_id;
         connector.execute(sql_delete);
+    }
+
+    List<Object> get_medicines_by_appointment(int appointment_id) {
+        List<Object> objs = new ArrayList<>();
+        try {
+            String select_sql = "SELECT DISTINCT `MEDICINE`.`NAME`, `MEDICINE`.`PRICE` FROM `APPOINTMENT_MEDICINE` INNER JOIN `APPOINTMENT` ON `APPOINTMENT`.`APPOINTMENT_ID` = `APPOINTMENT_MEDICINE`.`APPOINTMENT_ID` INNER JOIN `MEDICINE` ON `MEDICINE`.`MEDICINE_ID` = `APPOINTMENT_MEDICINE`.`MEDICINE_ID` WHERE `APPOINTMENT`.`APPOINTMENT_ID` = "+appointment_id;
+            ResultSet rs = connector.execute_query(select_sql);
+            while(rs.next()){
+                objs.add(new Object[]{rs.getString(1), rs.getInt(2)});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return objs;
     }
 
     boolean is_admin() {
@@ -463,4 +505,9 @@ public class DataManager {
     boolean is_pharmacist() {
         return is_pharmacist;
     }
+
+    boolean is_staff() {
+        return is_staff;
+    }
+
 }

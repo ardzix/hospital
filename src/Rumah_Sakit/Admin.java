@@ -267,7 +267,6 @@ public class Admin extends JFrame {
     private void selectRow(int selectedRow) {
         selected_row = selectedRow;
     }
-
     public void refreshTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         
@@ -276,7 +275,6 @@ public class Admin extends JFrame {
         }
         if(manager!=null){
             ArrayList<Object> admins = manager.get_admins();
-            
             ids.clear();
             for(int i=0; i<admins.size(); i++){
                 model.addRow((Object[]) admins.get(i));

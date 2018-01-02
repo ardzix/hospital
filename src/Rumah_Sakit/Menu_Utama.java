@@ -41,9 +41,11 @@ public class Menu_Utama extends JFrame {
         jLabel1 = new javax.swing.JLabel();
         jbuttonPharmacy = new javax.swing.JButton();
         jbuttondoctor = new javax.swing.JButton();
+        jbuttonstaff = new javax.swing.JButton();
         jbuttonadmin = new javax.swing.JButton();
         jPanelbiru = new javax.swing.JPanel();
         jLabelhexa = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -98,7 +100,7 @@ public class Menu_Utama extends JFrame {
                 jbuttonPharmacyActionPerformed(evt);
             }
         });
-        getContentPane().add(jbuttonPharmacy, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 130, 40));
+        getContentPane().add(jbuttonPharmacy, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 130, 40));
 
         jbuttondoctor.setBackground(new java.awt.Color(228, 241, 254));
         jbuttondoctor.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
@@ -109,18 +111,29 @@ public class Menu_Utama extends JFrame {
                 jbuttondoctorActionPerformed(evt);
             }
         });
-        getContentPane().add(jbuttondoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 130, 40));
+        getContentPane().add(jbuttondoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, 130, 40));
+
+        jbuttonstaff.setBackground(new java.awt.Color(228, 241, 254));
+        jbuttonstaff.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
+        jbuttonstaff.setForeground(new java.awt.Color(34, 167, 240));
+        jbuttonstaff.setText("Staff");
+        jbuttonstaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbuttonstaffActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbuttonstaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 130, 40));
 
         jbuttonadmin.setBackground(new java.awt.Color(228, 241, 254));
         jbuttonadmin.setFont(new java.awt.Font("Gill Sans MT", 2, 18)); // NOI18N
         jbuttonadmin.setForeground(new java.awt.Color(34, 167, 240));
-        jbuttonadmin.setText("Admin/Staff");
+        jbuttonadmin.setText("Admin");
         jbuttonadmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbuttonadminActionPerformed(evt);
             }
         });
-        getContentPane().add(jbuttonadmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 120, 40));
+        getContentPane().add(jbuttonadmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 120, 40));
 
         jPanelbiru.setBackground(new java.awt.Color(34, 167, 240));
 
@@ -147,17 +160,20 @@ public class Menu_Utama extends JFrame {
 
         getContentPane().add(jPanelbiru, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
 
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Apoteker-compress.png"))); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 120, 120));
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Medicine-compress2.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 230, 110, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, 110, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Admin-compress2.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Watermark.png"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Doctor-compress2.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 230, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/Background fix.jpg"))); // NOI18N
         jLabel7.setText("jLabel7");
@@ -171,16 +187,20 @@ public class Menu_Utama extends JFrame {
     }//GEN-LAST:event_jbuttonadminActionPerformed
 
     private void jbuttondoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttondoctorActionPerformed
-        login(2);
+        login(3);
     }//GEN-LAST:event_jbuttondoctorActionPerformed
 
     private void jbuttonPharmacyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonPharmacyActionPerformed
-        login(3);
+        login(4);
     }//GEN-LAST:event_jbuttonPharmacyActionPerformed
 
     private void jButtonexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonexitActionPerformed
     System.exit(0);
     }//GEN-LAST:event_jButtonexitActionPerformed
+
+    private void jbuttonstaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonstaffActionPerformed
+        login(2);
+    }//GEN-LAST:event_jbuttonstaffActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -222,6 +242,7 @@ public class Menu_Utama extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonexit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -233,5 +254,6 @@ public class Menu_Utama extends JFrame {
     private javax.swing.JButton jbuttonPharmacy;
     private javax.swing.JButton jbuttonadmin;
     private javax.swing.JButton jbuttondoctor;
+    private javax.swing.JButton jbuttonstaff;
     // End of variables declaration//GEN-END:variables
 }

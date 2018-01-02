@@ -24,27 +24,21 @@ public class ActionMenu extends JFrame {
             jbuttonMedicine.setEnabled(true);
             jLabelportal.setText("ADMIN PORTAL");
         }
-        if(role.equals("staff")){
-//            jbuttonUser.setEnabled(true);
+        if(manager.is_staff()){
             jbuttonPatient.setEnabled(true);
             jbuttonAppointment.setEnabled(true);
-//            jbuttonMedicine.setEnabled(true);
             jLabelportal.setText("STAFF PORTAL");
         }
-        if(role.equals("doctor")){
+        if(manager.is_doctor()){
             jbuttonAppointment.setEnabled(true);
             jLabelportal.setText("DOCTOR PORTAL");
         }
-        if(role.equals("pharmacist")){
+        if(manager.is_pharmacist()){
             jbuttonMedicine.setEnabled(true);
             jbuttonAppointment.setEnabled(true);
             jLabelportal.setText("PHARMACIST PORTAL");
         }
-        if(role.equals("staff")){
-            jbuttonPatient.setEnabled(true);
-            jbuttonAppointment.setEnabled(true);
-            jLabelportal.setText("STAFF PORTAL");
-        }
+        
        
     }
 

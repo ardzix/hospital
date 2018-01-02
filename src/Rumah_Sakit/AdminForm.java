@@ -106,7 +106,7 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel3.setText("Role:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 248, -1, -1));
 
-        roleChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Doctor", "Pharmacist", "Staff" }));
+        roleChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff", "Doctor", "Pharmacist" }));
         getContentPane().add(roleChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 268, 330, 40));
 
         jbuttonadmin2.setBackground(new java.awt.Color(242, 38, 19));

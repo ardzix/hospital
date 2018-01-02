@@ -18,12 +18,15 @@ public class Login extends javax.swing.JFrame {
     public Login(int role) {
         initComponents();
         if(role==1){
-            jLabel1.setText("LOGIN ADMIN/STAFF");
-            this.role = "staff";
+            jLabel1.setText("LOGIN ADMIN");
+            this.role = "admin";
         }else if(role==2){
+            jLabel1.setText("LOGIN STAFF"); 
+            this.role = "staff";
+        }else if(role==3){
             jLabel1.setText("LOGIN DOCTOR"); 
             this.role = "doctor";
-        }else if(role==3){
+        }else if(role==4){
             jLabel1.setText("LOGIN PHARMACIST"); 
             this.role = "pharmacist";
         }else{
@@ -61,8 +64,8 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/lock-icon.png"))); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 30, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("D:\\PROYEK BIG MAMA\\PROYEK OOP\\Rumah Sakit Capture\\30.png")); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 40, -1));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rumah_Sakit/assets/30.png"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 40, 30));
 
         jPanelbiru.setBackground(new java.awt.Color(34, 167, 240));
 
